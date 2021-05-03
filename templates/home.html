@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}" />
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js">
     </script>
@@ -26,10 +27,40 @@
                     map: map
                 });
             }
+            document.getElementById('latitude').value = location.lat();
+            document.getElementById('longitude').value = location.lng();
         }
     </script>
 </head>
     <body onload="initialize()">
-        <div id="map-canvas" style="width:80%; height:500px;"></div>
+        <h1>CrimeMap</h1>
+        <p>A map of recent criminal activity in Dnipro</p>
+        <div id="map-canvas"></div>
+        <div id="newcrimeform">
+            <h2>Submit new crime</h2>
+            <form action="/submitcrime" method="POST">
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="burglary">Burglary</option>
+                    <option value="drug-dealing">Drug Dealing</option>
+                    <option value="murder">Murder</option>
+                    <option value="mugging">Mugging</option>
+                    <option value="robbery">Robbery</option>
+                    <option value="shoplifting">Shoplifting</option>
+                    <option value="theft">Theft</option>
+                    <option value="vandalism">Vandalism</option>
+                </select>
+                <label for="date">Date</label>
+                <input name="date" id="date" type="date">
+                <label for="latitude">Latitude</label>
+                <input name="latitude" id="latitude" type="text">
+                <label for="longitude">Longitude</label>
+                <input name="longitude" id="longitude" type="text">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" placeholder="A brief description of the crime">
+                </textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </body>
 </html>
